@@ -64,32 +64,22 @@ namespace Homework3
                 }
 
 
-                if (commands[0].ToLower() == "del" && commands.Length == 3)
+                if (commands[0].ToLower() == "del" && commands.Length == 2)
                 {
-                    int number;
-                    if (Int32.TryParse(commands[2], out number))
-                    {
-                        
                         IEnumerable<int> res = 
                            from t in WorkersList // Определяем каждый объект как t
                            where t.Name == commands[1] // Фильтрация по критерию
                            orderby t // Упорядочиваем по возрастанию
-                           select WorkersList.IndexOf(t); // Выбираем объект
+                           select WorkersList.IndexOf(t); // Выбираем индекс объекта
 
                         foreach (int i in res)
                         {
                             WorkersList.RemoveAt(i);
-                            Console.WriteLine(i);
+                            //Console.WriteLine(i);
                         }
 
-                        Console.WriteLine("удаление работника номер: " + number);
+                        Console.WriteLine("удаление работника: " + commands[1]);
                         
-                    }
-                    else
-                    {
-                        Console.WriteLine("Неверный номер работника!");
-                        Help();
-                    }
 
                 }
 
