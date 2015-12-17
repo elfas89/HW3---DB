@@ -7,7 +7,8 @@ using System.IO;
 
 namespace Homework3
 {
-    class Employee : Person
+    [Serializable]
+    public class Employee : Person
     {
         private int empNumber;
         private string empPosition;
@@ -32,6 +33,8 @@ namespace Homework3
             }
         }
 
+        //пустой конструктор для XML-сериализации; также в родителе
+        public Employee() { }
 
         public Employee(string name, string position, int number)
             : base(name)

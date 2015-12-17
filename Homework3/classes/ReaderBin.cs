@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Homework3
 {
@@ -10,9 +11,17 @@ namespace Homework3
     {
         public override void Read()
         {
-            using (StreamReader sr = new StreamReader("Read.txt")) // Создание объекта файла, с которого будут считываться данные
+            BinaryFormatter formatter = new BinaryFormatter();
+            FileInfo fileInfo = new FileInfo(File);
+            if (fileInfo.Exists)
             {
-                Data = sr.ReadToEnd(); // Получение данных с файла и запись в хранилище через свойство Data
+                if (fileInfo.Length > 0)
+                {
+                    using (FileStream fs = new FileStream(File, FileMode.Open))
+                    {
+                        Data = (List<Employee>)formatter.Deserialize(fs);
+                    }
+                }
             }
         }
     }

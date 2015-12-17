@@ -6,10 +6,12 @@ using System.Threading.Tasks;
 
 namespace Homework3
 {
-    class Person
+    [Serializable]
+    public class Person
     {
         public string Name { get; set; }
 
+        public Person() { }
         public Person(string name)
         {
             Name = name;

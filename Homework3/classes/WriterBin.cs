@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.IO;
+using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Homework3
 {
@@ -10,9 +11,12 @@ namespace Homework3
     {
         public override void Write()
         {
-            using (StreamWriter sw = new StreamWriter("Write.txt")) // Создание объекта файла, в который будут записываться данные
+            // Создаем объект BinaryFormatter
+            BinaryFormatter formatter = new BinaryFormatter();
+            // Получаем поток, куда будем записывать сериализованный объект
+            using (FileStream fs = new FileStream(File, FileMode.Create))
             {
-                sw.WriteLine(Data); // Получение данных через свойство Data и запись их в файл
+                formatter.Serialize(fs, Data);
             }
         }
     }

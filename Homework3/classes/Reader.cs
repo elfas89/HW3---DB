@@ -7,7 +7,8 @@ namespace Homework3
 {
     public abstract class Reader : IReader
     {
-        public string Data { get; protected set; }
+        public List<Employee> Data { get; protected set; }
+        public string File { get; set; }
         public abstract void Read();
     }
 }

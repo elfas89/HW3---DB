@@ -7,7 +7,8 @@ namespace Homework3
 {
     public interface IWriter
     {
-        string Data { set; } // Свойство для хранения данных, которые будут записываться
+        List<Employee> Data { set; } // Свойство для хранения данных, которые будут записываться
+        string File { get; set; }   // свойство для имени файла
         void Write(); // Метод записи данных
     }
 }

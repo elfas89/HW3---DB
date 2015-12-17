@@ -11,37 +11,69 @@ namespace Homework3
     {
         static void Main(string[] args)
         {
-            string path = @"D:\!_C#\!_Projects\Homework3\Homework3\bin\Debug\workers.dat";
-            FileInfo fileInfo = new FileInfo(path);
-
-            if (fileInfo.Exists)
+            //определяем формат для сериализации
+            string formatType = "";
+            string path = "options.ini";
+            FileInfo file = new FileInfo(path);
+            if (file.Exists)
             {
-                Console.WriteLine("файл с данными есть");
+                using (StreamReader sr = new StreamReader(path))
+                {
+                    formatType = sr.ReadToEnd();
+                   // Console.WriteLine(formatType);
+                }
             }
             else
             {
-                Console.WriteLine("файла с данными нет");
+                Console.WriteLine("Файл настроек \"options.ini\" не найден! Программа завершает работу");
+                return;
             }
 
 
-            string formatType;
-            using (StreamReader sr = new StreamReader("options.ini"))
+
+            //Console.WriteLine(formatType);
+
+            ReadWriteLogic process = new ReadWriteLogic();
+            switch (formatType)
             {
-                Console.WriteLine("формат для сериализации: " + sr.ReadToEnd());
-                formatType = sr.ReadToEnd();
+                case "BIN":
+                    ReaderBin binRead = new ReaderBin();
+                    WriterBin binWrite = new WriterBin();
+                    process.Reader = binRead;
+                    process.Writer = binWrite;
+                    process.File = "workers.dat";
+                    Console.WriteLine("файл BIN");
+                    Console.WriteLine("Нажмите любую клавишу для продолжения");
+                    Console.ReadLine();
+                    break;
+                case "XML":
+                    ReaderXml xmlRead = new ReaderXml();
+                    WriterXml xmlWrite = new WriterXml();
+                    process.Reader = xmlRead;
+                    process.Writer = xmlWrite;
+                    process.File = "workers.xml";
+                    Console.WriteLine("файл XML");
+                    Console.WriteLine("Нажмите любую клавишу для продолжения");
+                    Console.ReadLine();
+                    break;
+                default:
+                    Console.WriteLine("Недопустимая настройка в файле \"options.ini\", программа завершает работу");
+                    return;
             }
 
 
+
+            //коллекция работников
             List<Employee> WorkersList = new List<Employee>();
-            WorkersList.Add(new Employee("John", "Lead Victim", 1));
-            WorkersList.Add(new Employee("Steve", "Tech Victim", 2));
+            //WorkersList.Add(new Employee("John", "Lead Victim", 1));
+            //WorkersList.Add(new Employee("Steve", "Tech Victim", 2));
 
-            //foreach (Employee e in WorkersList)
-            //{
-            //    Console.WriteLine(e.ToString());
-            //}
-
-
+            //проверка наличия данных при запуске
+            process.Read();
+            if (process.Data != null)
+            {
+                WorkersList = process.Data;
+            }
 
 
             while (true)
@@ -59,7 +91,10 @@ namespace Homework3
 
                 if (commands[0].ToLower() == "exit" & commands.Length == 1)
                 {
+                    //запись в свойство
+                    process.Data = WorkersList;
                     //запись в файл
+                    process.Write();
                     return;
                 }
 
@@ -118,14 +153,7 @@ namespace Homework3
                     }
                 }
 
-
             }
-
-
-
-
-
-
 
         }
 

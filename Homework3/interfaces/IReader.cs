@@ -7,7 +7,8 @@ namespace Homework3
 {
     public interface IReader
     {
-        string Data { get; } // Свойство для храннения считанных данных
+        List<Employee> Data { get; } // Свойство для храннения считанных данных
+        string File { get; set; }
         void Read(); // Метод считывания данных
     }
 }
