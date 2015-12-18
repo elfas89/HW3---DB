@@ -44,7 +44,6 @@
     <Compile Include="classes\Employee.cs" />
     <Compile Include="interfaces\IReader.cs" />
     <Compile Include="interfaces\IWriter.cs" />
-    <Compile Include="classes\Person.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="classes\Reader.cs" />

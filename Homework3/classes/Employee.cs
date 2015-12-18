@@ -8,10 +8,24 @@ using System.IO;
 namespace Homework3
 {
     [Serializable]
-    public class Employee : Person
+    public class Employee
     {
+        private string name;
         private int empNumber;
         private string empPosition;
+
+        public string Name
+        {
+            get
+            {
+                return name;
+            }
+
+            set
+            {
+                name = value;
+            }
+        }
 
         public int EmpNumber
         {
@@ -33,11 +47,10 @@ namespace Homework3
             }
         }
 
-        //пустой конструктор для XML-сериализации; также в родителе
+        //пустой конструктор для XML-сериализации
         public Employee() { }
 
         public Employee(string name, string position, int number)
-            : base(name)
         {
             Name = name;
             empPosition = position;
